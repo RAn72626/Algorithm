@@ -1,3 +1,4 @@
+// 动态规划 问题 解法
 // 1、写个分解过程，得到递推公式（进阶版：伪码（包含逻辑和变量））
 // 2、翻译代码
 //     2.1 确定输入和输出
@@ -30,83 +31,87 @@
 
 // 存储结果：i 之后所有物品在W_BAG 的限制下的最大价值
 
-// const N_BAG = 6;
-// const W_BAG = 20;
-// const W = [1, 2, 3, 4, 5, 6];
-// const V = [6, 5, 4, 3, 2, 1];
-
-// const DP = [];
-// for (let i=0; i<=N_BAG; i++) {
-//     const item = [];
-//     for (let j=0; j<=W_BAG; j++) {
-//         item.push(-1);
-//     }
-//     DP.push(item);
-// }
-
-// let sum = 0;
-// let cache = 0;
-
-// // 取第 i 个物品， weight 是背包里剩余的重量空间
-// function maxValue(i, weight) {
-//     // 背包里面没有剩余的重量空间了，直接返回0
-//     if (weight === 0) {
-//         return 0;
-//     }
-//     // i 超出背包里要求的总数目了，直接返回0
-//     if (i >= N_BAG) {
-//         return 0;
-//     }
-//     // 已经计算过了，直接使用
-//     if (DP[i][weight] !== -1) {
-//         return DP[i][weight];
-//     }
-
-//     // 取 i 个 物品
-
-//     const V_i = V[i];
-//     const W_i = W[i];
-//     if (V_i  && W_i) {
-//         let selected = V_i;
-//         let unselected = 0;
-//         // 第 i 个物品的重量大于背包目前剩余的重量空间 ，不选
-//         if (W_i > weight) {
-//             selected = 0;
-//         } else {
-//             if (DP[i+1][weight - W_i] !== -1) {
-//                 selected += DP[i+1][weight - W_i];
-//             } else {
-//                 selected += maxValue(i+1, weight - W_i);
-//                 // DP[i+1][weight - W_i] = selected; 
-//             }
-//         }
-       
-
-//         if (DP[i+1][weight] !== -1) {
-//             unselected += DP[i+1][weight];
-//         } else {
-//             unselected += maxValue(i+1, weight);
-//         }
-
-//         DP[i][weight] = Math.max(selected, unselected);
-//         return DP[i][weight];
-//     } else {
-//         return 0;
-//     }
-    
-// }
-
-
 const N_BAG = 6;
 const W_BAG = 20;
 const W = [1, 2, 3, 4, 5, 6];
 const V = [6, 5, 4, 3, 2, 1];
 
+
+// 选择二位数组作为数据结构
+const DP = [];
+for (let i=0; i<=N_BAG; i++) {
+    const item = [];
+    for (let j=0; j<=W_BAG; j++) {
+        item.push(-1);
+    }
+    DP.push(item);
+}
+
 let sum = 0;
 let cache = 0;
 
 // 取第 i 个物品， weight 是背包里剩余的重量空间
+// i 的初始值是 0， weight 的初始值是 W_BAG
 function maxValue(i, weight) {
+    // 背包里面没有剩余的重量空间了，直接返回0
+    if (weight === 0) {
+        return 0;
+    }
+    // i 超出背包里要求的总数目了，直接返回0
+    if (i >= N_BAG) {
+        return 0;
+    }
+    // 已经计算过了，直接使用
+    if (DP[i][weight] !== -1) {
+        return DP[i][weight];
+    }
+
+    // 取 i 个 物品
+    // 得到第i个物品的价值和重量
+    const V_i = V[i];
+    const W_i = W[i];
+    // 如果第i个物品的价值和重量存在
+    if (V_i  && W_i) {
+        // 初始化选择和不选此物品的价值
+        let selected = V_i;
+        let unselected = 0;
+        // 第 i 个物品的重量大于背包目前剩余的重量空间 ，不选
+        if (W_i > weight) {
+            selected = 0;
+        } else {
+            // 如果第i+1个物品，并且剩余weight-W_i的值已经计算过了，直接提取
+            if (DP[i+1][weight - W_i] !== -1) {
+                selected += DP[i+1][weight - W_i];
+            } 
+            // 递归调用maxValue，计算第i+1个物品， 并且剩余 weight-W_i 的重量
+            else {
+                selected += maxValue(i+1, weight - W_i);
+                // DP[i+1][weight - W_i] = selected; 
+            }
+        }
+       
+        // 对于不选的情况
+        // 如果第i+1个物品， 并且剩余weight 的值已经计算过了，直接提取
+        if (DP[i+1][weight] !== -1) {
+            unselected += DP[i+1][weight];
+        } 
+        // 递归调用maxValue， 计算第i+1个物品，并且剩余weight的重量
+        else {
+            unselected += maxValue(i+1, weight);
+        }
+
+        // 比较得到选择和不选最大的值，然后存起来，以备以后调用，避免重复计算
+        DP[i][weight] = Math.max(selected, unselected);
+        return DP[i][weight];
+    } else {
+        return 0;
+    }
+    
+}
+
+
+// 取第 i 个物品， weight 是背包里剩余的重量空间
+function maxValueArr(i, weight) {
     // 背包里面没有剩余的重量空间了，直接返回0
     if (weight === 0) {
         return [];
@@ -130,12 +135,12 @@ function maxValue(i, weight) {
             selected = [];
             v_selected = 0;
         } else {
-            selected = selected.concat(maxValue(i+1, weight - W_i));
+            selected = selected.concat(maxValueArr(i+1, weight - W_i));
             v_selected += selected.reduce((prev, curr) => prev + curr, 0);
 
         }
  
-        unselected = unselected.concat(maxValue(i+1, weight));
+        unselected = unselected.concat(maxValueArr(i+1, weight));
         v_unselected += unselected.reduce((prev, curr) => prev + curr, 0);
 
         return v_selected >= v_unselected ? selected : unselected;
@@ -146,7 +151,6 @@ function maxValue(i, weight) {
     
 }
 
+console.log(maxValue(0, W_BAG));
+console.log(maxValueArr(0, W_BAG).map(item => `${W[item]}_${V[item]}`));
 
-console.log(maxValue(0, W_BAG).map(item => `${W[item]}_${V[item]}`));
-// console.log(sum, cache);
-// console.log(DP);
