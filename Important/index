@@ -1,0 +1,12 @@
+面试算法题
+
+1：HTML parse
+2：红包，尽可能随机，最大不超过80%
+3：event listener 事件监听 => listen， trigger， 
+4：洋葱问题 [a,b,c,d] => a}b}c}d, 就是webpack里的 middlevery
+5：JS 大数相加
+6：promise n-fetch, 请求n次之后，就不再请求了
+7：deep clone 深拷贝
+8：正则，单词去重，数字格式化，三位加','，replace， 
+9：继承，比较少考了，因为ES6有class 可以使用了
+10：topK, 最小堆
