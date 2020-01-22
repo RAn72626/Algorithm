@@ -40,6 +40,10 @@ function DFSCopy(obj, visitedArr = []) {
     return _obj;
 }
 
+function BFSCopy() {
+    
+}
+
 const obj = {
     name: 'lily',
     age: 35,

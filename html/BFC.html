@@ -29,7 +29,7 @@
         <p>看看我的 margin是多少</p>
     </div>
 </body> -->
-<style>
+<!-- <style>
     *{
         margin: 0;
         padding: 0;
@@ -61,6 +61,24 @@
 <body>
     <div class="left">LEFT</div>
     <div class="right">RIGHT</div>
+</body> -->
+<style>
+/* vertical-align: middle 和display: table-cell 结合使用，才生效 */
+.parent {
+    display: table-cell;
+    height: 500px;
+    vertical-align: middle;
+}
+/* inline-block 定义在行内所有子元素上，则所有子元素按照一行展示 */
+.child1 .child2{
+    display: inline-block; 
+}
+</style>
+<body>
+    <div class="parent">
+        <div class="child1">child1</div>
+        <div class="child2">child2</div>
+    </div>
 </body>
 
 </html>
