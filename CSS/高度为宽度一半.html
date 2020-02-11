@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>div 水平垂直居中</title>
+</head>
+
+<!-- padding 和 margin 的 % 都是相对于自身的宽度。
+     因为在文档流中左右位置是固定的，上下位置是不固定的。
+     主要的使用场景是占位符，根据元素的宽度预留好位置。
+     background-color 覆盖了content， padding， border。
+     margin 由父元素的background 覆盖-->
+<style>
+    .outer {
+        display: flex;
+        width: 400px;
+        height: 400px;
+        border: solid 1px red;
+        align-items: center;
+    }
+    .inner {
+        width: 100%;
+        background-color: yellow;
+        margin: 0 20px;
+        padding-top: 50%;  
+    }
+</style>
+<body>
+    <div class="outer">
+        <div class="inner">center</div>
+    </div>
+</body>
+
+</html>
