@@ -82,160 +82,86 @@ var topKFrequent = function(nums, k) {
 // end
 
 // 最小堆
-const files = [9, 3, 7, 6, 5, 1, 10, 2, 8, 12, 40, 90, 100, 120, 500, 35];
+// const files = [9, 3, 7, 6, 5, 1, 10, 2, 8, 12, 40, 90, 100, 120, 500, 35];
 
-function findParent(index) {
-    if (!index) return -1;
-    const n = findNLayer(index);
-    const n_location = index - Math.pow(2, n) + 2;
-    // index  === 2^n - 2 + 该列第N个位置; 
-    parent = Math.pow(2, n - 1) - 2 + Math.ceil(n_location / 2);
-    return parent;
-}
+// function findParent(index) {
+//     if (!index) return -1;
+//     const n = findNLayer(index);
+//     const n_location = index - Math.pow(2, n) + 2;
+//     // index  === 2^n - 2 + 该列第N个位置; 
+//     parent = Math.pow(2, n - 1) - 2 + Math.ceil(n_location / 2);
+//     return parent;
+// }
 
-function findChildren(index) {
-    const n = findNLayer(index);
-    const n_location = index - Math.pow(2, n) + 2;
-    const leftChild = Math.pow(2, n+1) - 2 + (n_location - 1) * 2 + 1;
-    const rightChild = Math.pow(2, n+1) - 2 + (n_location - 1) * 2 + 2;
-    return [leftChild, rightChild];
-}
+// function findChildren(index) {
+//     const n = findNLayer(index);
+//     const n_location = index - Math.pow(2, n) + 2;
+//     const leftChild = Math.pow(2, n+1) - 2 + (n_location - 1) * 2 + 1;
+//     const rightChild = Math.pow(2, n+1) - 2 + (n_location - 1) * 2 + 2;
+//     return [leftChild, rightChild];
+// }
 
-// 确定二叉树层级
-function findNLayer(index) {
-    let result = 0;
-    let target = 1;
-    while (target < index + 1) {
-        target += Math.pow(2, (result + 1));
-        result += 1;
-    }
-    return result;
-}
+// // 确定二叉树层级
+// function findNLayer(index) {
+//     let result = 0;
+//     let target = 1;
+//     while (target < index + 1) {
+//         target += Math.pow(2, (result + 1));
+//         result += 1;
+//     }
+//     return result;
+// }
 
-function flatTree(treeArray, index) {
-    const maxLength =  treeArray.length;
-    const children = findChildren(index).filter(item => item < maxLength);
-    if (children.length === 0) return;
-    if (children.length === 1 && treeArray[children[0]] < treeArray[index]) {
-        const temp = treeArray[children[0]]
-        treeArray[children[0]] = treeArray[index];
-        treeArray[index] = temp;
-        flatTree(treeArray, children[0]);
-    }
-    if (children.length === 2 && treeArray[index] > Math.min(treeArray[children[0]], treeArray[children[1]])) {
-        if (treeArray[children[0]] >= treeArray[children[1]]) {
-            const temp = treeArray[children[1]];
-            treeArray[children[1]] = treeArray[index];
-            treeArray[index] = temp;
-            flatTree(treeArray, children[1]);
-        } else {
-            const temp = treeArray[children[0]];
-            treeArray[children[0]] = treeArray[index];
-            treeArray[index] = temp;
-            return flatTree(treeArray, children[0]);
-        }
-    }
-}
+// function flatTree(treeArray, index) {
+//     const maxLength =  treeArray.length;
+//     const children = findChildren(index).filter(item => item < maxLength);
+//     if (children.length === 0) return;
+//     if (children.length === 1 && treeArray[children[0]] < treeArray[index]) {
+//         const temp = treeArray[children[0]]
+//         treeArray[children[0]] = treeArray[index];
+//         treeArray[index] = temp;
+//         flatTree(treeArray, children[0]);
+//     }
+//     if (children.length === 2 && treeArray[index] > Math.min(treeArray[children[0]], treeArray[children[1]])) {
+//         if (treeArray[children[0]] >= treeArray[children[1]]) {
+//             const temp = treeArray[children[1]];
+//             treeArray[children[1]] = treeArray[index];
+//             treeArray[index] = temp;
+//             flatTree(treeArray, children[1]);
+//         } else {
+//             const temp = treeArray[children[0]];
+//             treeArray[children[0]] = treeArray[index];
+//             treeArray[index] = temp;
+//             return flatTree(treeArray, children[0]);
+//         }
+//     }
+// }
 
-function createTree(value) {
-    let treeArray = value;
-    const maxLength = treeArray.length;
-    // let index = findParent(treeArray.length - 1); // 干扰特别大
-    while(index >= 0) {
-        flatTree(treeArray, maxLength);
-        index --;
-    }
-    return treeArray;
-}
+// function createTree(value) {
+//     let treeArray = value;
+//     const maxLength = treeArray.length;
+//     // let index = findParent(treeArray.length - 1); // 干扰特别大
+//     while(index >= 0) {
+//         flatTree(treeArray, maxLength);
+//         index --;
+//     }
+//     return treeArray;
+// }
 
-function maxTop(top, files) {
-    const minTree = createTree(files.slice(0, top));
-    files.slice(top).forEach(item => {
-        if (minTree[0] < item) {
-            minTree[0] = item;
-            flatTree(minTree, 0);
-        }
-    });
-    return minTree;
-}
+// function maxTop(top, files) {
+//     const minTree = createTree(files.slice(0, top));
+//     files.slice(top).forEach(item => {
+//         if (minTree[0] < item) {
+//             minTree[0] = item;
+//             flatTree(minTree, 0);
+//         }
+//     });
+//     return minTree;
+// }
 
-console.log(maxTop(5, files));
+// console.log(maxTop(5, files));
 
 
-/**
- * @param {number[]} nums
- * @param {number} k
- * @return {number[]}
- */
-var topKFrequent = function(nums, k) {
-    var childrenMap = {};
-    let map = nums.reduce((prev, curr) => {
-        if (prev[curr]) {
-            prev[curr] += 1;
-        } else {
-            prev[curr] = 1;
-        }
-        return prev;
-    }, {});
-    
-    function flatTree (tree, index, k) {
-        if (index >= k) return;
-        const children = childrenMap[index] ? childrenMap[index].filter(item => item < k) : getChildren(index, k);
-        if (children.length > 0) {
-            if (children.length === 1 && tree[index] > tree[children[0]]) {
-                const temp = tree[children[0]];
-                tree[children[0]] = tree[index];
-                tree[index] = temp;
-                flatTree(tree, children[0], k);
-            } else if (children.length === 2 && tree[index] > Math.min(tree[children[0]], tree[children[1]])) {
-                const target = tree[children[0]] > tree[children[1]] ? children[1] : children[0];
-                const temp = tree[index];
-                tree[index] = tree[target];
-                tree[target] = temp;
-                flatTree(tree, target, k);
-            }
-        }
-    }
-
-    function getChildren (index, k) {
-        const locationLayer = Math.floor(Math.sqrt(index + 2));
-        const locationIndex = (index + 1) - Math.pow(2, locationLayer - 1) + 1;
-        const nextLayer = Math.pow(2, locationLayer) - 1;
-        childrenMap[index] = [nextLayer + locationIndex * 2 - 2, nextLayer + locationIndex * 2 -1];
-        return childrenMap[index].filter(item => item < k);
-    }
-
-    function createTree (tree, k) {
-        const result = tree.slice(0, k);
-        for(let index = k - 1; index >= 0; index--) {
-            flatTree(result, index, k);
-        }
-        return result;
-    }
-    let isTree = false;
-    let resultTree = [];
-    const idMap = {};
-    for (let key in map) {
-        if (map.hasOwnProperty(key)) {
-            if (isTree && map[key] >= resultTree[0]) {
-                resultTree[0] = map[key];
-                idMap[map[key]] ? idMap[map[key]].push(key) : idMap[map[key]] = [key];
-                flatTree(resultTree, 0, k);
-            }
-            if (!isTree && resultTree.length <= k - 1) {
-                resultTree.push(map[key]);
-                idMap[map[key]] ? idMap[map[key]].push(key) : idMap[map[key]] = [key];
-                if (resultTree.length === k) {
-                    resultTree = createTree(resultTree, k);
-                    isTree = true;
-                }
-            }
-        }
-    }
-    resultTree = Array.from(new Set(resultTree));
-    resultTree.sort((a, b) => b - a);
-    return resultTree.reduce((prev, curr) => { return [...prev, ...idMap[curr]]; }, []).slice(0, k);
-};
 /**
  * 对一个二叉搜索树进行序列化和反序列化，由于二叉搜索树的特性可知，其相邻的值的大小关系代表其中序遍历的结果
  * 因此只需要生成器其前序或者后续的遍历结果，两次遍历结果就可以得到最终的二叉搜索树，这里选择前序遍历结果，后续不方便处理且不能使用
