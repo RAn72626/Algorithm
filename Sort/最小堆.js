@@ -21,6 +21,7 @@ var topKFrequent = function(nums, k) {
         return prev;
     }, {});
     
+    console.log(map, 'map')
     function flatTree (tree, index, k) {
         if (index >= k) return;
         const children = childrenMap[index] ? childrenMap[index].filter(item => item < k) : getChildren(index, k);
@@ -41,16 +42,18 @@ var topKFrequent = function(nums, k) {
     }
 
     function getChildren (index, k) {
-        const locationLayer = Math.floor(Math.sqrt(index + 2));
-        const locationIndex = (index + 1) - Math.pow(2, locationLayer - 1) + 1;
-        const nextLayer = Math.pow(2, locationLayer) - 1;
-        childrenMap[index] = [nextLayer + locationIndex * 2 - 2, nextLayer + locationIndex * 2 -1];
-        return childrenMap[index].filter(item => item < k);
+        const locationLayer = Math.floor(Math.log2(index + 1)); // index 元素的上一层，层数从1 开始计算
+        const locationIndex = (index + 1) - Math.pow(2, locationLayer) + 1; // locationIndex 是index元素在当前行的第几个，从1开始计算
+        const nextLayer = Math.pow(2, locationLayer+1) - 1;  // 下一层
+        childrenMap[index] = [nextLayer + locationIndex * 2 - 2, nextLayer + locationIndex * 2 -1];  // 左右子节点
+        return childrenMap[index].filter(item => item < k);  // 过滤不存在的子节点
     }
 
     function createTree (tree, k) {
+        // 截取 tree 数组中 前面 k 个元素
         const result = tree.slice(0, k);
         for(let index = k - 1; index >= 0; index--) {
+            // 从最后一个元素开始创建最小堆
             flatTree(result, index, k);
         }
         return result;
@@ -62,13 +65,16 @@ var topKFrequent = function(nums, k) {
         if (map.hasOwnProperty(key)) {
             if (isTree && map[key] >= resultTree[0]) {
                 resultTree[0] = map[key];
-                idMap[map[key]] ? idMap[map[key]].push(key) : idMap[map[key]] = [key];
+                idMap[map[key]] ? idMap[map[key]].push(key) : idMap[map[key]] = [key]; // idMap 记录当前key 对应的元素
                 flatTree(resultTree, 0, k);
             }
+            // 刚开始还没有创建树，把元素都放在resultTree 中 
             if (!isTree && resultTree.length <= k - 1) {
                 resultTree.push(map[key]);
                 idMap[map[key]] ? idMap[map[key]].push(key) : idMap[map[key]] = [key];
+                // resultTree 的长度为 k, 意思是可以创建最小堆了，后期如果还有元素就替换掉最小堆的根节点，维护k个元素的最小堆
                 if (resultTree.length === k) {
+                    console.log(resultTree, 'resultTree')
                     resultTree = createTree(resultTree, k);
                     isTree = true;
                 }
@@ -77,10 +83,11 @@ var topKFrequent = function(nums, k) {
     }
     resultTree = Array.from(new Set(resultTree));
     resultTree.sort((a, b) => b - a);
+
     return resultTree.reduce((prev, curr) => { return [...prev, ...idMap[curr]]; }, []).slice(0, k);
 };
 
-const nums = ['a', 'a', 'b', 'a'];
+const nums = ['a', 'a', 'b', 'a', 'c', 'd', 'd', ''];
 console.log(topKFrequent(nums, 2))
 // end
 
