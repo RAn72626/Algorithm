@@ -79,6 +79,9 @@ var topKFrequent = function(nums, k) {
     resultTree.sort((a, b) => b - a);
     return resultTree.reduce((prev, curr) => { return [...prev, ...idMap[curr]]; }, []).slice(0, k);
 };
+
+const nums = ['a', 'a', 'b', 'a'];
+console.log(topKFrequent(nums, 2))
 // end
 
 // 最小堆
