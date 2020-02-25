@@ -31,7 +31,15 @@ for (var i = 0; i < 5; i++) {
 for (var i = 0; i < 5; i++) {
     (function(i) {
         setTimeout(() => {
-            console.log(i)
+            // console.log(i)
         }, 1000);
     })(i);
+}
+
+// 第四，附加参数，一旦定时器到期，它们会作为参数传递给function 
+// setTimeout(func, delay, param)
+for (var i = 0; i < 5; i++) {
+    setTimeout((i) => {
+        console.log(i)
+    }, 1000, i);
 }
