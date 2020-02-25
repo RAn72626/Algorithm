@@ -23,12 +23,12 @@ var test = function() {
     var m = 'm';
     let n = 'n';
 
-    (
-        function() {
-            m = 'mmmm';
-            console.log(m, 'IIFE')
-        }
-    )()
+    // (
+    //     function() {
+    //         m = 'mmmm';
+    //         console.log(m, 'IIFE')
+    //     }
+    // )()
 
     function inside () {
         console.log(m, 'inside m');
@@ -38,15 +38,16 @@ var test = function() {
     }
 
     function inside2() {
-        {
-            let n ="nnn"
-            console.log(n, 'inside22 n')
-
-        }
+        
+            // let n ="nnn"
+        console.log(n, 'inside22 n')
         console.log(m, 'inside22 m');
     }
 
-    inside();
+    for (let k = 0; k < 2; k++) {
+        inside();
+    }
+
 }
 
 test()
