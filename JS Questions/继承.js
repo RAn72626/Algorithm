@@ -24,7 +24,7 @@ Child.prototype = new Parent('lily', 'jack');
 let test = new Child();
 // test.constructor === Children.prototype.constructor === Parent
 
-// console.log(test.name, test.name1, test.age);
+console.log(test.name, test.name1, test.age);
 
 // 构造函数实现继承
 // 定义父类
@@ -51,7 +51,7 @@ function Dog() {
 
 let dog = new Dog('jack', 'jone');
 
-// console.log(dog.name, dog.name1, dog.age, dog.temp, 'constructer instance');
+console.log(dog.name, dog.name1, dog.age, dog.temp, 'constructer instance');
 
 // ES6 继承, class 是ES6 新引入的，不是object或者 function
 // 定义父类
@@ -81,5 +81,5 @@ class Son extends Father {
 // 实例化Son，实例对象有Son 的属性和方法，也会有Father 的属性和方法
 let son = new Son(['lily', '30'], 'mike', '15');
 
-son.show();
-son.showSon();
+// son.show();
+// son.showSon();
