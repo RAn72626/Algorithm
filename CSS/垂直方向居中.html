@@ -8,20 +8,12 @@
 </head>
 
 <style>
-    /* flex 布局 */
+    /*第一： flex 布局 */
     /* .outer {
         display: flex;
         align-items: center;
         justify-content: center;
         height: 100px;
-    } */
-    /* text-align + line-height */
-    /* .outer {
-        height: 100px;
-        line-height: 100px;
-    }
-    .inner {
-        text-align: center;
     } */
     /* 外层flex 和内层 margin 相结合 */
     /* .outer {
@@ -30,16 +22,26 @@
     .inner {
         margin: auto;
     } */
-    /* translate 50% */
+
+    /* 第二：text-align + line-height */
+    /* .outer {
+        height: 100px;
+        line-height: 100px;
+    }
+    .inner {
+        text-align: center;
+    } */
+    
+    /* 第三：translate 50% */
     /* .outer {
         position: relative;
         height: 100px;
     }
     .inner {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
+        position: absolute;  // absolute 相对于上层第一个position 非 static的元素布局
+        left: 50%; // 相对于父元素
+        top: 50%;  // 相对于父元素
+        transform: translate(-50%, -50%); // 平移元素本身，X Y 轴平移的% 是相对于元素本身
     } */
     
 
