@@ -9,7 +9,7 @@ export default function createStore(reducer, initState = {}) {
         getState: function () { return state; },
         // 改变一些值；并且触发事件；并且执行对应的处理函数
         dispatch(eventType, action) {
-            state = reducer(state, action); +10;
+            state = reducer(state, action);
             // 寻找处理函数
             const cloneListeners = listeners[eventType];
             // 执行所对应的处理函数

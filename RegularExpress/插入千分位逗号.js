@@ -7,7 +7,7 @@ const res = numFormat("9815159884343.4343434");
 console.log(res)
 
 // 贪婪模式: 尽可能匹配最长的字符串, 正则默认的
-// 非贪婪匹配： 尽可能匹配最短的字符串，表达式后面加 ？
+// 非贪婪匹配： 尽可能匹配最短的字符串，量词 +* 后面加 ？
 const str = 'aa<div>test1</div>bb<div>test2</div>cc';
 let regx = /(<div>.*<\/div>)/;  // 贪婪模式
 let regx1 = /(<div>.*?<\/div>)/;  // 非贪婪匹配
