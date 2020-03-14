@@ -46,3 +46,9 @@ console.log(str.match(regx), str.match(regx1))
 // 后顾：(?<=exp2)exp1 查找exp2后面的exp1
 // 负前瞻：exp1(?!exp2) 查找后面不是exp2的exp1
 // 负后顾：(?<!exp2)exp1 查找前面不是exp2的exp1
+
+// API
+// regx = /http/g, regx.test('http'), true / false
+// 'string'.match(/str/g), 返回满足正则的字符串部分
+// 'string'.replace(//, '$1,'), 把满足正则的部分替换掉，然后返回字符串
+
