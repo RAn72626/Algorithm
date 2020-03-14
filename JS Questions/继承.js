@@ -24,7 +24,7 @@ Child.prototype = new Parent('lily', 'jack');
 let test = new Child();
 // test.constructor === Children.prototype.constructor === Parent
 
-console.log(test.name, test.name1, test.age);
+// console.log(test.name, test.name1, test.age);
 
 // 构造函数实现继承
 // 定义父类
@@ -51,7 +51,7 @@ function Dog() {
 
 let dog = new Dog('jack', 'jone');
 
-console.log(dog.name, dog.name1, dog.age, dog.temp, 'constructer instance');
+// console.log(dog.name, dog.name1, dog.age, dog.temp, 'constructer instance');
 
 // ES6 继承, class 是ES6 新引入的，不是object或者 function
 // 定义父类
@@ -83,3 +83,14 @@ let son = new Son(['lily', '30'], 'mike', '15');
 
 // son.show();
 // son.showSon();
+
+var A = function() {};
+A.prototype.n = 1;
+var b = new A();  // b._proto_ = A.prototype, 把A.prototype 的属性添加到 _proto_ 上面，不是共用引用
+A.prototype = {  // A.prototype 更改不会影响之前的实例
+    n:2,
+    m: 3,
+}
+var c = new A();
+console.log(b.n, b.m, c.n, c.m);
+

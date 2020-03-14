@@ -1,0 +1,37 @@
+<div id="outer" style="background-color: black;">
+    <div id='box' style="background-color: red; width: 300px">
+        <a id='btn' style="background-color: blue;">btn</a>
+    </div>
+</div>
+
+<script>
+    let box = document.getElementById('box');
+    let btn = document.getElementById('btn');
+    let outer = document.getElementById('outer');
+
+    btn.onclick = function() {console.log('2')};
+
+    // addEventListener 第三个参数为 true 时，在捕获时执行，为 false 时，在冒泡时执行
+    // 绑定多个事件时，当第三个参数相同时，先绑定的先执行
+    box.addEventListener('click', function(e) {
+        console.log('inner-false-first');
+    }, false);
+
+    box.addEventListener('click', function(e) {
+        console.log('inner-false-second');
+    });
+
+    box.addEventListener('click', function(e) {
+        console.log('inner-true');
+    }, true);
+
+    outer.addEventListener('click', function(e) {
+        console.log('outer-true')
+    }, true);
+
+    outer.addEventListener('click', function(e) {
+        console.log('outer-false');
+    }, false);
+
+
+</script>
