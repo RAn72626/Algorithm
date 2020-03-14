@@ -53,7 +53,7 @@ let dog = new Dog('jack', 'jone');
 
 // console.log(dog.name, dog.name1, dog.age, dog.temp, 'constructer instance');
 
-// ES6 继承, class 是ES6 新引入的，不是object或者 function
+// ES6 继承, class 是ES6 新引入的，应该是 object
 // 定义父类
 class Father {
     constructor(name, age) {
