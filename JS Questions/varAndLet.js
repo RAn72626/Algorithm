@@ -1,24 +1,5 @@
-let a = 1;
-var b = 2;
-
-console.log(a,  'a');
-console.log(b,  'b');
-
-function temp () {
-    console.log(a, 'temp a')
-    console.log(b, 'temp b')
-
-    function inside() {
-        console.log(a, 'inside a')
-        console.log(b, 'inside b')
-        inside();
-    }
-
-    inside();
-}
-
-// temp();
-
+// 声明全局变量推荐使用 var，如果在自作用域中更改了，全局也会写
+// 如果全局有一个let变量，在子作用域中又重新声明了一个 let 变量，那么在子作用域中使用的是新的lei 变量
 var test = function() {
     var m = 'm';
     let n = 'n';
@@ -40,6 +21,7 @@ var test = function() {
     function inside2() {
         
             // let n ="nnn"
+            // m = 'mmmm';
         console.log(n, 'inside22 n')
         console.log(m, 'inside22 m');
     }
@@ -50,4 +32,4 @@ var test = function() {
 
 }
 
-test()
+// test()
