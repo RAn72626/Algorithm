@@ -7,7 +7,7 @@ function Parent(name, age) {
 }
 
 function _new(fn, ...args) {
-    // ...args 回你把参数析构承诺一个数组
+    // ...args 把参数析构为一个数组
     console.log(fn.prototype, args);
 
     const obj = Object.create(fn.prototype); // Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的__proto__。

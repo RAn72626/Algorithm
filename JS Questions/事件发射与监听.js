@@ -14,7 +14,7 @@ export default function createStore(reducer, initState = {}) {
             const cloneListeners = listeners[eventType];
             // 执行所对应的处理函数
             cloneListeners.forEach(item => {
-                item.call(store === this, [parmas]);
+                // item.call(store === this, [parmas]);
                 item.apply(store, param2, params1)
         });
     },

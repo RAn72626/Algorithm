@@ -4,14 +4,15 @@ function sleep(time) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             // sleep
+            // resolve 时，会触发 then 方法绑定的回调函数，并且把异步执行的结果传递过去
+            resolve(1);
+            reject(2);
         }, time);
-        // resolve 时，会触发 then 方法绑定的回调函数，并且把异步执行的结果传递过去
-        resolve(1);
-        reject(2);
+        
     })
 }
 
-let test = sleep(1000);
+let test = sleep(5000);
 // 使用 then 指定 resolve 和 reject 的回调函数，
 // then 和 catch 返回的都是 promise实例，后续还可以继续then catch
 test.then((res) => {
