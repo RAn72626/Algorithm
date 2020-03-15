@@ -1,5 +1,5 @@
-// [a, b, b, c, e, f]
 // 爱奇艺一面
+// 返回数组中第一次出现的只出现一次的元素
 
 function temp(arr) {
     let res = {};
@@ -18,3 +18,7 @@ function temp(arr) {
         }
     }
 }
+
+arr = ['a', 'a', 'b', 'c', 'e', 'f'];
+const res = temp(arr);
+console.log(res)
