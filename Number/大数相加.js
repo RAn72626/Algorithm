@@ -1,3 +1,5 @@
+// 两个大数相加
+
 function add(a, b, decimal) {
     const aList = (a || '').split('');
     const bList = (b || '').split('');
@@ -29,4 +31,13 @@ function addToDecimal(a, b) {
     return result;
 }
 
+// 进制 m 转换为 n 进制 
+// parseInt(str,radix); 将字符串str按照radix进制编码方式转换为10进制返回，没有radix，默认为10
+// toString(radix)；返回表示该数字的指定进制形式的字符串。
+function convert(num, m, n) {
+    return parseInt(String(num), m).toString(n);
+}
 
+const num = 101;
+const res = convert(num, 2, 10);
+console.log(res)
