@@ -87,8 +87,8 @@ let son = new Son(['lily', '30'], 'mike', '15');
 var A = function() {};
 A.prototype.n = 1;
 var b = new A();  // b._proto_ = A.prototype, 把A.prototype 的属性添加到 _proto_ 上面，不是共用引用
-A.prototype = {  // A.prototype 更改不会影响之前的实例
-    n:2,
+A.prototype = {  // A.prototype 赋值了新的对象，指向新的内存地址
+    n:2,         // 之前的实例的 __proto__ 还指向旧的 A.prototype
     m: 3,
 }
 var c = new A();
