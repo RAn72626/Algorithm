@@ -40,6 +40,17 @@ for (var i = 0; i < 5; i++) {
 // setTimeout(func, delay, param)
 for (var i = 0; i < 5; i++) {
     setTimeout((i) => {
-        console.log(i)
+        // console.log(i)
     }, 1000, i);
 }
+
+
+// 随机执行 setTimeout， setImmediate
+// 如果放在回调函数或者异步函数里，先执行setImmediate，后执行setTimeout
+setTimeout(() => {
+    console.log('setTimeout')
+}, 0);
+
+setImmediate(() => {
+    console.log('set immediate')
+})
