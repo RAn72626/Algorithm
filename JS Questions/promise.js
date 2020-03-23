@@ -1,25 +1,51 @@
-// resolve promise 产生的函数，作用域的原因其能修改promise的状态 pending -> fullfied
-// 去除,then(callback)的一个函数体，传入参数并执行，由于作用域这个函数体能够修改调用者的状态
+// Promise.all(promises[]) 当所有的promise执行完毕之后，才返回new Promise 的 resolve
+// Promise.race(promises[]) 当有一个promise执行完毕后，就返回new Promise 的 resolve
 
-Promise.prototype.all = function (promises) {
-    let index = promises.length;
-    let result = [];
-    return new Promise((resolve, reject) => {
-      promises.map(item => {
-        // race 实现过程
-        // item.then(resolve);
-        // all 实现过程
-        item.then((data) => {
-          index--;
-          result.push(data);
-          if (index === 0) {
-            resolve(result);
-          }
-        });
-      });
-    });
+function fetch(url) {
+  return new Promise((resolve, reject) => {
+      setTimeout(() => {
+          resolve(url);
+      }, Math.random()*1000);
+  });
+}
+
+function promiseAll() {
+  let prom1 = fetch(1);
+  let prom2 = fetch(2);
+  let prom3 = fetch(3);
+  const all = function(promises) {
+      let result = [], index = 0;
+      return new Promise((resolve, reject) => {
+          promises.forEach(item => {
+              // race 
+              // item.then((res) => {
+              //   resolve(res);
+              // })
+
+              // all
+              item.then((res) => {
+                  result.push(res);
+                  index++;
+                  if (index === promises.length) {
+                      resolve(result);
+                  }
+              }).catch((error) => {
+                  reject(error);
+              })
+          })
+      })
   }
 
+  all([prom1, prom2, prom3]).then((res) => {
+      console.log(res)
+  }).catch((error) => {
+      console.log(error);
+  });
+}
+
+promiseAll();
+
+// upload pictures
   async function uploadPicture(files, editor) {
     console.log(editor);
     if (typeof files === 'string') {
