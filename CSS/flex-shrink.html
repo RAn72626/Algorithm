@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="first-child"></div>
+    <div class="last-child"></div>
+</div>
+
+<style>
+    .container {
+        display: flex;
+        width: 600px;
+        height: 300px;
+        background-color: black;
+    }
+    .first-child {
+        width: 500px;
+        flex-shrink: 1;
+        height: 100px;
+        background-color: red;
+    }
+    .last-child {
+        width: 400px;
+        flex-shrink: 2;
+        height: 100px;
+        background-color: blue;
+    }
+</style>
+<!-- 
+现在 container 宽度是600px
+子元素加权综合所得：500*1 + 400*2 = 1300
+第一个元素收缩：500*1/1300*( 900-600 ) = 115.38
+第一个元素的宽度为：500 - 115.38
+第二个元素的宽度为：400 - 400*2/1300 * (900-600) -->
