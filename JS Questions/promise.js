@@ -45,6 +45,42 @@ function promiseAll() {
 
 promiseAll();
 
+// 每隔一秒输出一个数字，异步的链式调用
+const list = [1, 2, 3];
+const square = num => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(num * num);
+        }, 1000);
+    });
+}
+
+// 使用 promise 链式回调可以实现，
+// 但是 async await 不擅长链式回调
+function test() {
+    const queue = list.reduce((prev, curr) => {
+        if (prev) {
+            return () => {
+                return new Promise((resolve, reject) => {
+                    prev().then((data) => {
+                        console.log(data);
+                        square(curr).then(resolve, reject);
+                    })
+                })
+            }
+        } else {
+            return () => {
+                return square(curr);
+            }
+        }
+    }, null);
+
+    queue().then(data => {console.log(data, 'end')})
+}
+
+test()
+
+
 // upload pictures
   async function uploadPicture(files, editor) {
     console.log(editor);

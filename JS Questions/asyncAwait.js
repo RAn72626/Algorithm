@@ -14,4 +14,5 @@ async function temp() {
 temp();
 console.log(6)
 
-// 123645
+123645
+
